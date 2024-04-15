@@ -96,7 +96,12 @@ public class FlutterBranchSdkPlugin implements FlutterPlugin, MethodCallHandler,
     private void setActivity(Activity activity) {
         LogUtils.debug(DEBUG_NAME, "triggered setActivity");
         this.activity = activity;
-        initialIntent = activity.getIntent();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initialIntent = activity.getIntent();
+            }
+        }, 200);
         activity.getApplication().registerActivityLifecycleCallbacks(this);
     }
 
